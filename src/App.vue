@@ -4,9 +4,9 @@
       <Login></Login>  
       <div class="content">
         <span class="berfot" @click="depictn"></span>
-        <i class="depict" @click="depictn"></i>
+        <i class="depict active-on-animation" @click="depictn"></i>
         <i class="btnlog"></i>
-        <label class="label-title">分类: javaScript{{boxlogin}}</label>
+        <label class="label-title">分类: javaScript  {{boxlogin}}</label>
         <el-menu theme="dark" default-active="1" class="el-menu-demo" mode="horizontal" @select="handleSelect" :class="nubrou&&'on'">
           <template v-for="(item,i) in routes">
             <el-menu-item :index="item.path" :class="item.active&&'is-active-on'">
@@ -186,5 +186,13 @@ body{margin: 0;padding: 0;}
   display: block;
   height: 100%;
   width: 100%;
+}
+.active-on-animation{
+  animation: activeon-animation 5s linear infinite alternate;
+}
+@keyframes activeon-animation
+{
+  0% {background:#fff;}
+  100% {background:#fe6300;}
 }
 </style>
