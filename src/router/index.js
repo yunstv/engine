@@ -5,8 +5,7 @@ import Index from 'components/Index'
 import Class from 'components/Class'
 import Home from 'components/Home'
 Vue.use(Router)
-
-export default new Router({
+const HotRouter = new Router({
   routes: [
     {
       path: '/',
@@ -30,3 +29,7 @@ export default new Router({
     }
   ]
 })
+HotRouter.beforeEach((to, from, next) => {
+  next()
+})
+export default HotRouter

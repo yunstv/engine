@@ -4,14 +4,13 @@ body {
     font-family: 'Open Sans', sans-serif;
     color: #4A4A4A ;
     text-align: center; 
-    background: url(https://res.wx.qq.com/a/wx_fed/webwx/res/static/img/2zrdI1g.jpg) no-repeat 50%;
+    background: url(/assets/2zrdI1g.jpg) no-repeat 50%;
     background-size: cover;
    
 }
 
 .box15{
-    margin: 40px auto;
-    width: 100%;
+    margin:40px 15px 25px 15px;
     min-height: 310px;
     padding: 10px;
     position:relative;
