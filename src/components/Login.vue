@@ -31,17 +31,48 @@ export default {
       msg: 'login',
       username: null,
       userpass: null,
-      loading: false
+      loading: false,
+      state: {
+        success: {
+          title: '成功登录梦周十的blog！',
+          message: '登录成功后，您将有权限进行评论！',
+          type: 'success'
+        },
+        warning: {
+          title: '帐号不存在或密码错误',
+          message: '您可尝试重新输入密码或注册帐号',
+          type: 'warning'
+        }
+      }
     }
   },
   computed: {
     boxlogin () {
       return this.$store.state.boxlogin
+    },
+    validation () {
+      return this.$store.state.validation
     }
   },
   methods: {
     login () {
-      this.loading = true
+      let $self = this
+      let api = {
+        username: $self.username,
+        userpass: $self.userpass,
+        callback: function (result, state) {
+          let msg = $self.state
+          state ? ((() => {
+            $self.$notify(msg.success)
+            $self.blowup()
+          })()) : ((() => {
+            $self.$notify(msg.warning)
+          })())
+          $self.loading = false
+        }
+      }
+      $self.loading = true
+      this.$store.dispatch('setValidation', api)
     },
     blowup () {
       this.$store.dispatch('setBoxlogin', false)

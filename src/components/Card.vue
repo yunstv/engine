@@ -138,7 +138,7 @@ export default {
       background-position: center;
   }
   .card{
-    background: url(http://img.hb.aicdn.com/d47edfddc98cb8d522ff873691a2776a7ad5ec382aea4-o1OYWh_fw658);
+    background: url(http://www.yunstv.cn/userbg.jpg);
     background-size: cover;
     height: 100%;
   }  .card .filters, .card .bio{

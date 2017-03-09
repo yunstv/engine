@@ -15,7 +15,7 @@
                 <div class="box6_corner_rt"></div>
                 <div class="review">
                   <div class="editor">
-                    <textarea class="textarea" placeholder="说点什么"></textarea>
+                    <textarea class="textarea" placeholder="说点什么" v-model="textarea"></textarea>
                     <div class="botton" @click="verify($event)">发表</div>
                   </div>
                 </div>
@@ -31,15 +31,26 @@ export default {
   name: 'home',
   data () {
     return {
-      msg: 'home'
+      msg: 'home',
+      textarea: null
+    }
+  },
+  computed: {
+    validation () {
+      return this.$store.state.validation
     }
   },
   methods: {
-    login () {
-      this.loading = true
+    validationfn () {
+      let [area, msgerror, msgsuccess] = [this.textarea, {showClose: true, message: '评论不能为空!', type: 'error'}, {showClose: true, message: '发表成功！'}]
+      let msg = null
+      if (!area) msg = msgerror
+      else msg = msgsuccess
+      this.$message(msg)
     },
     verify () {
-      this.$store.dispatch('setBoxlogin', true)
+      if (!this.validation) this.$store.dispatch('setBoxlogin', true)
+      else this.validationfn()
     }
   }
 }

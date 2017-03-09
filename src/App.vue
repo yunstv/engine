@@ -6,7 +6,7 @@
         <span class="berfot" @click="depictn"></span>
         <i class="depict active-on-animation" @click="depictn"></i>
         <i class="btnlog"></i>
-        <label class="label-title">分类: javaScript  {{boxlogin}}</label>
+        <label class="label-title">分类: javaScript<i></i>{{username}}</label>
         <el-menu theme="dark" default-active="1" class="el-menu-demo" mode="horizontal" @select="handleSelect" :class="nubrou&&'on'">
           <template v-for="(item,i) in routes">
             <el-menu-item :index="item.path" :class="item.active&&'is-active-on'">
@@ -39,6 +39,9 @@ export default {
     },
     boxlogin () {
       return this.$store.state.boxlogin
+    },
+    username () {
+      return this.$store.state.username
     }
   },
   watch: {
@@ -106,7 +109,11 @@ export default {
 </script>
 
 <style lang="scss">
-.label-title{position: absolute; right: 60px; color: #fff; z-index: 3; top: 20px;}
+.label-title{position: absolute; right: 60px; color: #fff; z-index: 3; top: 20px;
+  i{
+    margin-left: 15px;
+  }
+}
 body{margin: 0;padding: 0;}
 .is-active::before,.is-active-on::before{
     content: '';
