@@ -1,8 +1,12 @@
-# zyblog
+# yunstv.cn
 
-> A Vue.js project
+> 技术栈 node + webpack + sass + ES6 + vue + vueRouter + vuex + vueElement-ui + leancloud-storage
 
-## Build Setup
+## 代码规范
+
+> 代码规范 eslintrc: standard
+
+REF: JavaScript Standard Style(https://github.com/feross/standard/blob/master/RULES.md#javascript-standard-style)
 
 ``` bash
 # install dependencies
