@@ -1,7 +1,7 @@
 <template>
   <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; width: 100%; height: 100%; overflow: hidden;">
     <div id="app" :class="depicstate&&'animation'">
-      <Login></Login>  
+      <Login></Login>
       <div class="content">
         <span class="berfot" @click="depictn"></span>
         <i class="depict active-on-animation" @click="depictn"></i>
@@ -33,10 +33,6 @@ export default {
     Login
   },
   computed: {
-    statename () {
-      console.log(this.$store)
-      return this.$store.state.statename
-    },
     boxlogin () {
       return this.$store.state.boxlogin
     },
@@ -61,6 +57,7 @@ export default {
   },
   created () {
     this.roufun(this.nubrou)
+    this.$store.dispatch('setUsername', '')
   },
   data () {
     return {
@@ -153,9 +150,9 @@ body{margin: 0;padding: 0;}
   top: 0;
 }
 #app div.content{
-  width: 100%; 
-  position: relative; 
-  height: 100%; 
+  width: 100%;
+  position: relative;
+  height: 100%;
 }
 #app div.data{
   position: absolute;

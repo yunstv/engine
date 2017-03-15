@@ -17,7 +17,7 @@
         <li>
           <div>
             <el-button size="large" :plain="true" type="info" :loading="loading" @click="login">{{loading?'正在登录':'登录'}}</el-button>
-          </div> 
+          </div>
         </li>
       </ul>
     </div>
@@ -60,7 +60,7 @@ export default {
       let api = {
         username: $self.username,
         userpass: $self.userpass,
-        callback: function (result, state) {
+        callback: function (state) {
           let msg = $self.state
           state ? ((() => {
             $self.$notify(msg.success)

@@ -16,11 +16,15 @@ const actions = {
     AV.User.logIn(value.username, value.userpass).then(function (loginedUser) {
       value.callback(loginedUser, true)
       commit('SET_VALIDATION', true)
-      commit('SET_USERNAME', loginedUser.attributes.username)
+      commit('SET_USERNAME', loginedUser.get('username'))
     }, function (error) {
       value.callback(error, false)
       commit('SET_VALIDATION', false)
     })
+  },
+  setUsername: ({ commit }, value) => {
+    let information = AV.User.current().get('username')
+    if (information) commit('SET_USERNAME', information)
   }
 }
 const mutations = {

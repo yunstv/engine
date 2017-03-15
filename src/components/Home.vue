@@ -4,7 +4,7 @@
       <el-col :span="22">
         <div class="grid-content bg-purple">
             <div class="box6">
-                <h1>Sample Box</h1>   
+                <h1>Sample Box</h1>
                 <img src="http://www.wpthemegenerator.com/wp-content/uploads/2012/06/Image.jpg">
                 <p>
                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam luctus consectetur dolor a porttitor. Curabitur id sem sed ante fringilla pulvinar et id lectus. Nullam justo ipsum, hendrerit ut commodo nec, pellentesque nec erat. Pellentesque pharetra.
@@ -22,8 +22,8 @@
             </div>
         </div>
       </el-col>
-    </el-row> 
-    
+    </el-row>
+
   </div>
 </template>
 <script>
@@ -85,7 +85,7 @@ export default {
       .botton:hover{
         background: #324157;
         color: #fff;
-        border-color:#324157; 
+        border-color:#324157;
       }
     }
   }

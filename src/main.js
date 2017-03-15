@@ -16,15 +16,37 @@ const appId = 'p1fezCcoa6ApiO7DYAoxCOlG-gzGzoHsz'
 const appKey = 'Yy7ha8Nc6VdlyB5mJPlGjP0t'
 
 AV.init({ appId, appKey })
-
-// const TestObject = AV.Object.extend('TestObject')
+// 表查询
+// const query = new AV.Query('blogessay')
+// query.find().then((reslut) => {
+//   console.log(reslut)
+// }, (error) => {
+//   console.log(error)
+// })
+// 获取数据 建立表id查询 相关全部数据
+// const query = new AV.Query('TestObject')
+// query.get('58abd14c2f301e006c3bb6c2').then(function (data) {
+//   console.log(data.get('words'))
+// }, function (error) {
+//   console.error(error)
+// })
+// 获取数据 建立表id查询 可以通过创建的变量名 通过相应字段 get 相应值
+// const testObject = AV.Object.createWithoutData('TestObject', '58abd14c2f301e006c3bb6c2')
+// testObject.fetch().then((data) => {
+//   console.log(testObject.get('words'))
+// }, (error) => {
+//   console.error(error)
+// })
+// 存储数据
+// const TestObject = AV.Object.extend('blogessay')
 // const testObject = new TestObject()
 // testObject.save({
-//  words: 'Hello World!',
-//  data: ['1', '2']
+//   title: '技术',
+//   images: 'http://cdn-qn0.jianshu.io/assets/web/logo-58fd04f6f0de908401aa561cda6a0688.png',
+//   content: '<p>简约自在</p>'
 // }).then(function (error) {
-//  if (error) throw error
-//  console.log('LeanCloud Rocks!')
+//   if (error) throw error
+//   console.log('LeanCloud Rocks!')
 // })
 
 /* eslint-disable no-new */
