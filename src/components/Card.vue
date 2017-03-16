@@ -94,7 +94,7 @@ export default {
         }
         span.label{
           float: left;
-          display: inline-block; 
+          display: inline-block;
           margin-right: 15px;
           margin-bottom: 10px;
         }
@@ -142,7 +142,7 @@ export default {
     background-size: cover;
     height: 100%;
   }  .card .filters, .card .bio{
-    position: absolute; top: 0; bottom: 0; left: 0; right: 0; 
+    position: absolute; top: 0; bottom: 0; left: 0; right: 0;
   }
   .card .filters{
     -webkit-filter: blur(5px);

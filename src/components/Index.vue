@@ -3,16 +3,18 @@
       <el-row :gutter="20">
          <el-col :xs="24" :sm="12" :md="8" :lg="6" v-for="item in data" :key="item.key">
           <div class="grid-content bg-purple">
-            <div class="box15">
-                 <h1>{{item.title}}</h1>
-                 <div class="img">
-                    <img :src="item.images">
-                 </div>
-                 <div class="centents" v-html="item.content"></div>
-                 <br />
-                 <a href="">阅读详情</a>
-                 <div class="box15_ribbon"></div>
-            </div>
+            <router-link :to="item.link">
+              <div class="box15">
+                   <h1>{{item.title}}</h1>
+                   <div class="img">
+                      <img :src="item.images">
+                   </div>
+                   <div class="centents" v-html="item.content"></div>
+                   <br />
+                   <a href="">阅读详情</a>
+                   <div class="box15_ribbon"></div>
+              </div>
+            </router-link>
           </div>
         </el-col>
       </el-row>
@@ -34,13 +36,15 @@ export default {
       var [map, puls] = [reslut, []]
       if (Array === map.constructor) {
         puls = map.map((item, index) => {
+          item.attributes.id = item.id
           return item.attributes
         })
       }
       let feepld = feep(puls)
       // get('content')
       feepld = feepld.map((item, index) => {
-        item.content = converter.makeHtml(item.content)
+        item.link = {name: 'home', params: { id: item.id }}
+        item.content = converter.makeHtml(item.paper)
         return item
       })
       vm.data = feepld
@@ -214,88 +218,6 @@ h3 {
     overflow-y: scroll;
     width: 55%;
     padding: 10px;
-}
-
-pre {
-    white-space: pre-wrap;       /* css-3 */
-    white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
-    white-space: -pre-wrap;      /* Opera 4-6 */
-    white-space: -o-pre-wrap;    /* Opera 7 */
-    word-wrap: break-word;       /* Internet Explorer 5.5+ */
-    background-color: #f8f8f8;
-    border: 1px solid #dfdfdf;
-    margin-top: 1.5em;
-    margin-bottom: 1.5em;
-    padding: 0.125rem 0.3125rem 0.0625rem;
-}
-
-pre code {
-    background-color: transparent;
-    border: 0;
-    padding: 0;
-}
-
-
-.modal-wrapper {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    z-index: 999;
-    background-color: rgba(51,51,51,0.5);
-}
-
-.modal-inner {
-    margin-top: 200px;
-    margin-left: auto;
-    margin-right: auto;
-    width: 600px;
-    height: 225px;
-    background-color: #fff;
-    opacity: 1;
-    z-index: 1000;
-}
-
-.modal-close-btn {
-    float: right;
-    display: inline-block;
-    margin-right: 5px;
-    color: #ff4336;
-}
-
-.modal-close-btn:hover {
-    float: right;
-    display: inline-block;
-    margin-right: 5px;
-    color: #8d0002;
-}
-
-.modal-topbar {
-    clear: both;
-    height: 25px;
-}
-
-.modal-inner .link-area {
-    margin: 10px;
-    height: 170px;
-
-}
-
-.modal-inner textarea {
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    padding: 0;
-}
-
-.version {
-    color: white;
-    font-size: 0.8em !important;
-}
-
-.centents{
-    text-align: left;
 }
 h1, h2 {
   font-weight: normal;

@@ -3,10 +3,10 @@ body {
     font-size: 11px;
     font-family: 'Open Sans', sans-serif;
     color: #4A4A4A ;
-    text-align: center; 
+    text-align: center;
     background: url(http://www.yunstv.cn/2zrdI1g.jpg) no-repeat 50%;
     background-size: cover;
-   
+
 }
 
 .box15{
@@ -18,7 +18,7 @@ body {
     border: 1px solid #ccc;
     -webkit-box-shadow: 1px 1px 4px rgba(0,0,0, 0.1);
     -webkit-border-bottom-right-radius: 60px 5px;
-    
+
 }
 
 .box15:before{
@@ -68,7 +68,7 @@ body {
     margin-top: 15px;
 }
 
-.box15 p{ 
+.box15 p{
     margin-top: 15px;
     text-align: justify;
 }
@@ -76,7 +76,7 @@ body {
 h1{
     font-size: 20px;
     font-weight: bold;
-    margin-top: 5px; 
+    margin-top: 5px;
     text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
 }
 
@@ -103,11 +103,11 @@ a:hover{
     -webkit-border-top-right-radius: 60px 5px;
     -webkit-border-bottom-right-radius: 60px 60px ;
     -webkit-box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.3) ;
-    
+
 }
 
 .box6:before{
-    content:'';    
+    content:'';
     width: 25px;
     height: 20px;
     position: absolute;
@@ -173,4 +173,112 @@ a:hover{
 .el-col-4 .grid-content{
     margin: 0px 15px;
     padding: 0 15px;
+}
+
+pre {
+    white-space: pre-wrap;       /* css-3 */
+    white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+    white-space: -pre-wrap;      /* Opera 4-6 */
+    white-space: -o-pre-wrap;    /* Opera 7 */
+    word-wrap: break-word;       /* Internet Explorer 5.5+ */
+    background-color: #f8f8f8;
+    border: 1px solid #dfdfdf;
+    margin-top: 1.5em;
+    margin-bottom: 1.5em;
+    padding: 10px;
+}
+
+pre code {
+    background-color: transparent;
+    border: 0;
+    padding: 0;
+    color: #7a7a7a;
+}
+
+
+.modal-wrapper {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 999;
+    background-color: rgba(51,51,51,0.5);
+}
+
+.modal-inner {
+    margin-top: 200px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 600px;
+    height: 225px;
+    background-color: #fff;
+    opacity: 1;
+    z-index: 1000;
+}
+
+.modal-close-btn {
+    float: right;
+    display: inline-block;
+    margin-right: 5px;
+    color: #ff4336;
+}
+
+.modal-close-btn:hover {
+    float: right;
+    display: inline-block;
+    margin-right: 5px;
+    color: #8d0002;
+}
+
+.modal-topbar {
+    clear: both;
+    height: 25px;
+}
+
+.modal-inner .link-area {
+    margin: 10px;
+    height: 170px;
+
+}
+
+.modal-inner textarea {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.version {
+    color: white;
+    font-size: 0.8em !important;
+}
+
+.centents{
+    text-align: left;
+}
+blockquote {
+    margin: 0 0 1.25rem;
+    padding: 0.5625rem 1.25rem 0 1.1875rem;
+    border-left: 1px solid #ddd;
+}
+.box6 h1 {
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 20px;
+}
+.box6 p{
+    color: #333;
+    font-weight: bold;
+}
+blockquote, .box6 blockquote p {
+    line-height: 1.6;
+    color: #6f6f6f;
+}
+.box6 blockquote p {
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: normal;
+    line-height: 1.6;
+    margin-bottom: 1.25rem;
+    text-rendering: optimizeLegibility;
 }

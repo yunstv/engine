@@ -23,7 +23,7 @@ const HotRouter = new Router({
       component: Class
     },
     {
-      path: '/home',
+      path: '/home/:id',
       name: 'home',
       component: Home
     }
