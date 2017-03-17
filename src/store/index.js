@@ -6,7 +6,9 @@ const state = {
   statename: 'statename',
   boxlogin: false,
   validation: null,
-  username: '未登录'
+  username: '未登录',
+  userid: null,
+  userlogOut: null
 }
 const actions = {
   setBoxlogin: ({ commit }, value) => {
@@ -15,16 +17,25 @@ const actions = {
   setValidation: ({ commit }, value) => {
     AV.User.logIn(value.username, value.userpass).then(function (loginedUser) {
       value.callback(loginedUser, true)
-      commit('SET_VALIDATION', true)
-      commit('SET_USERNAME', loginedUser.get('username'))
+      loginedUser.username = loginedUser.get('username')
+      loginedUser.validation = true
+      commit('SET_USERNAME', loginedUser)
     }, function (error) {
       value.callback(error, false)
       commit('SET_VALIDATION', false)
     })
   },
+  setUserlogOut: ({ commit }, value) => {
+    AV.User.logOut()
+    commit('SET_USERNAME', {username: '未登录', id: '', validation: false})
+  },
   setUsername: ({ commit }, value) => {
-    let information = AV.User.current().get('username')
-    if (information) commit('SET_USERNAME', information)
+    let information = AV.User.current()
+    if (information) {
+      information.username = information.get('username')
+      information.validation = true
+      commit('SET_USERNAME', information)
+    }
   }
 }
 const mutations = {
@@ -35,7 +46,9 @@ const mutations = {
     Vue.set(state, 'validation', value)
   },
   SET_USERNAME (state, value) {
-    Vue.set(state, 'username', value)
+    Vue.set(state, 'username', value.username)
+    Vue.set(state, 'userid', value.id)
+    Vue.set(state, 'validation', value.validation)
   }
 }
 

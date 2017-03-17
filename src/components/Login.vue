@@ -2,24 +2,45 @@
   <div class="login blowup" v-show="boxlogin">
     <div>
       <i class="el-icon-close" @click="blowup"></i>
-      <ul>
-        <li style="padding-top: 0px;">
-         <h1 class="text-centent">登录梦周十blog</h1>
-        </li>
-        <li :class="username&&'on'">
-          <input type="text" autocomplete="off" class="el-input__inner" id="basic-name" v-model="username">
-          <label for="basic-name">账号</label>
-        </li>
-        <li :class="userpass&&'on'">
-          <input type="password" autocomplete="off" class="el-input__inner" id="basic-pass" v-model="userpass">
-          <label for="basic-pass">密码</label>
-        </li>
-        <li>
-          <div>
-            <el-button size="large" :plain="true" type="info" :loading="loading" @click="login">{{loading?'正在登录':'登录'}}</el-button>
-          </div>
-        </li>
-      </ul>
+      <div class="ov">
+        <ul>
+          <li style="padding-top: 0px;">
+           <h1 class="text-centent">登录梦周十blog</h1>
+          </li>
+          <li :class="username&&'on'">
+            <input type="text" autocomplete="off" class="el-input__inner" v-model="username">
+            <label for="basic-name">账号</label>
+          </li>
+          <li :class="userpass&&'on'">
+            <input type="password" autocomplete="off" class="el-input__inner" v-model="userpass">
+            <label for="basic-pass">密码</label>
+          </li>
+          <li>
+            <div>
+              <el-button size="large" :plain="true" type="info" :loading="loading" @click="login">{{loading?'正在登录':'登录'}}</el-button>
+            </div>
+          </li>
+          <li class="gks"></li>
+          </ul>
+          <ul>
+            <li style="padding-top: 0px;">
+             <h1 class="text-centent">注册</h1>
+            </li>
+            <li :class="register_username&&'on'">
+              <input type="text" autocomplete="off" class="el-input__inner" v-model="register_username">
+              <label for="basic-name">账号</label>
+            </li>
+            <li :class="register_userpass&&'on'">
+              <input type="password" autocomplete="off" class="el-input__inner" v-model="register_userpass">
+              <label for="basic-pass">密码</label>
+            </li>
+            <li>
+              <div>
+                <el-button size="large" :plain="true" type="info" :loading="register_loading" @click="register_login">{{register_loading?'正在注册':'注册'}}</el-button>
+              </div>
+            </li>
+        </ul>
+      </div>
     </div>
   </div>
 </template>
@@ -31,7 +52,10 @@ export default {
       msg: 'login',
       username: null,
       userpass: null,
+      register_username: null,
+      register_userpass: null,
       loading: false,
+      register_loading: false,
       state: {
         success: {
           title: '成功登录梦周十的blog！',
@@ -55,6 +79,9 @@ export default {
     }
   },
   methods: {
+    register_login () {
+      console.log(11)
+    },
     login () {
       let $self = this
       let api = {
@@ -100,6 +127,19 @@ export default {
     border-radius: 10px;
     position: relative;
     >i{position: absolute; right: 10px; top: 10px;cursor: pointer; transition: all .5s;}
+    .ov{
+      position: relative;
+      overflow: auto;
+      height: 409px;
+      margin-top: 29px;
+      .gks{
+        padding-top: 0px;
+        height: 1px;
+        background: #324157;
+        margin: 0px -10px;
+        margin-top: 14px;
+      }
+    }
     >i:hover{
       transform: rotate(135deg);
     }

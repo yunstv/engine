@@ -6,7 +6,7 @@
         <span class="berfot" @click="depictn"></span>
         <i class="depict active-on-animation" @click="depictn"></i>
         <i class="btnlog"></i>
-        <label class="label-title">分类: javaScript<i></i>{{username}}</label>
+        <label class="label-title">分类: javaScript<i></i><u>{{username}}</u><i class="exits" @click="exitsback" v-if="validation">退出</i></label>
         <el-menu theme="dark" default-active="1" class="el-menu-demo" mode="horizontal" @select="handleSelect" :class="nubrou&&'on'">
           <template v-for="(item,i) in routes">
             <el-menu-item :index="item.path" :class="item.active&&'is-active-on'">
@@ -38,6 +38,9 @@ export default {
     },
     username () {
       return this.$store.state.username
+    },
+    validation () {
+      return this.$store.state.validation
     }
   },
   watch: {
@@ -85,6 +88,22 @@ export default {
     }
   },
   methods: {
+    exitsback () {
+      var vm = this
+      vm.$confirm('确定退出账号吗？', '温馨提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        vm.$store.dispatch('setUserlogOut', '')
+        vm.$message({
+          type: 'success',
+          message: '已退出'
+        })
+      }).catch(() => {
+        console.log('取消')
+      })
+    },
     depictn () {
       this.depicstate = !this.depicstate
     },
@@ -110,6 +129,7 @@ export default {
   i{
     margin-left: 15px;
   }
+  .exits{ font-style: inherit;margin-left: 5px;cursor:pointer;color: #ccc;}
 }
 body{margin: 0;padding: 0;}
 .is-active::before,.is-active-on::before{

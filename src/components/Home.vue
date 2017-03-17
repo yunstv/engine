@@ -13,16 +13,37 @@
                     <div class="botton" @click="verify($event)">发表</div>
                   </div>
                 </div>
+                <div class="comment">
+                  <div v-if="commentdata">
+                    <div v-for="(elem, index) in commentdata" :key="elem.key" class="c-content">
+                      <div class="c-user-info">
+                        <span>{{elem.index}}楼</span>
+                        <span class="u">{{elem.username}}</span>
+                        <span class="c-create-time"> {{elem.time}}</span>
+                      </div>
+                      <p>
+                        {{elem.centent}}
+                      </p>
+                    </div>
+                  </div>
+                  <div class="mber0" v-else>
+                      <p class="text-centent">
+                        暂无评论~
+                      </p>
+                  </div>
+                </div>
             </div>
         </div>
       </el-col>
     </el-row>
-
   </div>
 </template>
 <script>
+// 服务器
 import AV from 'leancloud-storage'
+// 深度克隆
 import feep from '../common'
+// markdown语法转义成html格式
 import markdown from 'showdown'
 export default {
   name: 'home',
@@ -31,11 +52,11 @@ export default {
       msg: 'home',
       textarea: null,
       data: null,
-      id: null
+      id: null,
+      commentdata: null
     }
   },
   beforeRouteEnter (to, from, next) {
-    // do something before updating vue instance
     next(vm => {
       vm.id = to.params.id
       vm.inits()
@@ -44,9 +65,78 @@ export default {
   computed: {
     validation () {
       return this.$store.state.validation
+    },
+    username () {
+      return this.$store.state.username
+    },
+    userid () {
+      return this.$store.state.userid
     }
   },
   methods: {
+    async submit () {
+      var vm = this
+      await new Promise((resolve) => {
+        // 存储数据
+        const TestObject = AV.Object.extend('blogcomment')
+        const testObject = new TestObject()
+        testObject.save({
+          username: vm.username,
+          user_id: vm.userid,
+          blogessay_id: vm.id,
+          centent: vm.textarea,
+          likes: 0
+        }).then(function (error) {
+          if (error) throw error
+        })
+        resolve()
+      })
+    },
+    format (time, formatstr) {
+      var t = new Date(time)
+      var tf = function (i) { return (i < 10 ? '0' : '') + i }
+      return formatstr.replace(/yyyy|MM|dd|HH|mm|ss/g, function (a) {
+        let str = null
+        switch (a) {
+          case 'yyyy':
+            str = tf(t.getFullYear())
+            break
+          case 'MM':
+            str = tf(t.getMonth() + 1)
+            break
+          case 'mm':
+            str = tf(t.getMinutes())
+            break
+          case 'dd':
+            str = tf(t.getDate())
+            break
+          case 'HH':
+            str = tf(t.getHours())
+            break
+          case 'ss':
+            str = tf(t.getSeconds())
+            break
+        }
+        return str
+      })
+    },
+    comment () {
+      var vm = this
+      var query = new AV.Query('blogcomment')
+      query.startsWith('blogessay_id', vm.id)
+      query.find().then((reslut) => {
+        let puls = reslut.map((item, index) => {
+          item.attributes.time = vm.format(item.get('createdAt'), 'yyyy-MM-dd HH:mm:ss')
+          item.attributes.index = index + 1
+          return item.attributes
+        })
+        let feepld = feep(puls.reverse())
+        vm.commentdata = feepld.length ? feepld : null
+        console.log(feepld)
+      }, (error) => {
+        throw (error)
+      })
+    },
     inits () {
       var vm = this
       var converter = new markdown.Converter()
@@ -57,6 +147,7 @@ export default {
         let feepld = feep(puls)
         feepld.content = converter.makeHtml(feepld.content)
         vm.data = feepld
+        vm.comment()
       }, (error) => {
         console.log(error)
       })
@@ -64,9 +155,14 @@ export default {
     validationfn () {
       let [area, msgerror, msgsuccess] = [this.textarea, {showClose: true, message: '评论不能为空!', type: 'error'}, {showClose: true, message: '发表成功！'}]
       let msg = null
-      if (!area) msg = msgerror
-      else msg = msgsuccess
-      this.$message(msg)
+      if (!area) {
+        msg = msgerror
+        this.$message(msg)
+      } else {
+        this.submit().then(() => {
+          this.$message(msgsuccess)
+        })
+      }
     },
     verify () {
       if (!this.validation) this.$store.dispatch('setBoxlogin', true)
@@ -78,6 +174,30 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
+  .comment{
+    background: #fafafa;
+    margin-bottom: 20px;
+    margin-top: 10px;
+    padding: 15px 25px;
+    border-top: 2px solid #eee;
+    .u{
+      text-decoration: underline;
+      color:#406599;
+    }
+  }
+  .box6 .c-content {
+    margin-left: 2px;
+    overflow: hidden;
+    .c-create-time {
+      color: #777;
+    }
+    p {
+      font-size: 14px;
+      line-height: 22px;
+      color: #222;
+      font-weight: normal;
+    }
+  }
   .box6{
     text-align: left;
     .centents{
@@ -90,9 +210,11 @@ export default {
     justify-content: flex-start;
     display: flex;
     text-align: center;
+    background: #fafafa;
+    padding: 5px 5px;
     .editor{
       .textarea{
-        border-radius: 10px; padding: 10px; width: 500px; height: 50px;
+        border-radius: 10px; padding: 10px; width: 50vw; height: 50px;
       }
       .textarea:focus{
         outline: 0;
