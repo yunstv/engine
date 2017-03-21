@@ -17,7 +17,7 @@
                 <div class="comment">
                   <div v-if="commentdata">
                     <div v-for="(elem, index) in commentdata" :key="elem.key" class="c-content">
-                      <div class="c-user-info">
+                      <div class="c-user-info" style="border-bottom: 1px solid #eee; padding-bottom: 4px;">
                         <span>{{elem.index}}楼</span>
                         <span class="u">{{elem.username}}</span>
                         <span class="c-create-time"> {{elem.time}}</span>
@@ -88,7 +88,9 @@ export default {
           blogessay_id: vm.id,
           centent: vm.textarea,
           likes: 0
-        }).then(function (error) {
+        }).then(function (result) {
+          console.log(result)
+        }, function (error) {
           if (error) throw error
         })
         resolve()
@@ -164,6 +166,8 @@ export default {
       } else {
         this.submit().then(() => {
           this.$message(msgsuccess)
+          this.textarea = ''
+          this.comment()
         })
       }
     },

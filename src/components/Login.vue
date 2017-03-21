@@ -109,12 +109,22 @@ export default {
           bools ? ((() => {
             $self.$notify(msg.success)
             $self.username = $self.register_username
-            $self.isshowregister = false
+            $self.isshowregister = true
           })()) : ((() => {
             $self.$notify(msg.warning)
           })())
           $self.register_loading = false
         }
+      }
+      if (!api.username || api.username.length < 3) {
+        return $self.$message({showClose: true, message: '帐号字符长度必须大于3', type: 'error'})
+      }
+      var iseamill = /^[a-z\d]+(\.[a-z\d]+)*@([\da-z](-[\da-z])?)+(\.{1,2}[a-z]+)+$/
+      if (!iseamill.test(api.useremaill)) {
+        return $self.$message({showClose: true, message: '请输入正确的邮箱格式', type: 'error'})
+      }
+      if (!api.userpass || api.userpass.length < 6) {
+        return $self.$message({showClose: true, message: '密码字符长度必须大于6', type: 'error'})
       }
       $self.register_loading = true
       this.$store.dispatch('setRegisterUser', api)
@@ -134,6 +144,12 @@ export default {
           })())
           $self.loading = false
         }
+      }
+      if (!api.username || api.username.length < 3) {
+        return $self.$message({showClose: true, message: '帐号字符长度必须大于3', type: 'error'})
+      }
+      if (!api.userpass || api.userpass.length < 6) {
+        return $self.$message({showClose: true, message: '密码字符长度必须大于6', type: 'error'})
       }
       $self.loading = true
       this.$store.dispatch('setValidation', api)
