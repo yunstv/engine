@@ -3,7 +3,7 @@
     <div>
       <i class="el-icon-close" @click="blowup"></i>
       <div class="ov">
-        <ul>
+        <ul v-if="isshowregister">
           <li style="padding-top: 0px;">
            <h1 class="text-centent">登录梦周十blog</h1>
           </li>
@@ -20,15 +20,19 @@
               <el-button size="large" :plain="true" type="info" :loading="loading" @click="login">{{loading?'正在登录':'登录'}}</el-button>
             </div>
           </li>
-          <li class="gks"></li>
+          <li class="gks"><span @click="isshowregister=!isshowregister">注册</span></li>
           </ul>
-          <ul>
-            <li style="padding-top: 0px;">
+          <ul v-if="!isshowregister">
+            <li style="padding-top: 0px; margin-bottom: 0; margin-top: -47px; height: 19px;">
              <h1 class="text-centent">注册</h1>
             </li>
             <li :class="register_username&&'on'">
               <input type="text" autocomplete="off" class="el-input__inner" v-model="register_username">
               <label for="basic-name">账号</label>
+            </li>
+            <li :class="register_useremaill&&'on'">
+              <input type="text" autocomplete="off" class="el-input__inner" v-model="register_useremaill">
+              <label for="basic-pass">邮箱</label>
             </li>
             <li :class="register_userpass&&'on'">
               <input type="password" autocomplete="off" class="el-input__inner" v-model="register_userpass">
@@ -39,6 +43,7 @@
                 <el-button size="large" :plain="true" type="info" :loading="register_loading" @click="register_login">{{register_loading?'正在注册':'注册'}}</el-button>
               </div>
             </li>
+            <li class="gks"><span @click="isshowregister=!isshowregister">登录</span></li>
         </ul>
       </div>
     </div>
@@ -54,8 +59,10 @@ export default {
       userpass: null,
       register_username: null,
       register_userpass: null,
+      register_useremaill: null,
       loading: false,
       register_loading: false,
+      isshowregister: true,
       state: {
         success: {
           title: '成功登录梦周十的blog！',
@@ -65,6 +72,18 @@ export default {
         warning: {
           title: '帐号不存在或密码错误',
           message: '您可尝试重新输入密码或注册帐号',
+          type: 'warning'
+        }
+      },
+      register_state: {
+        success: {
+          title: '成功注册梦周十的blog！',
+          message: '请登录',
+          type: 'success'
+        },
+        warning: {
+          title: '帐号或者邮箱已被注册',
+          message: '您可尝试重新输入帐号或者邮箱',
           type: 'warning'
         }
       }
@@ -80,16 +99,34 @@ export default {
   },
   methods: {
     register_login () {
-      console.log(11)
+      var $self = this
+      let api = {
+        username: $self.register_username,
+        userpass: $self.register_userpass,
+        useremaill: $self.register_useremaill,
+        callback: function (state, bools) {
+          let msg = $self.register_state
+          bools ? ((() => {
+            $self.$notify(msg.success)
+            $self.username = $self.register_username
+            $self.isshowregister = false
+          })()) : ((() => {
+            $self.$notify(msg.warning)
+          })())
+          $self.register_loading = false
+        }
+      }
+      $self.register_loading = true
+      this.$store.dispatch('setRegisterUser', api)
     },
     login () {
       let $self = this
       let api = {
         username: $self.username,
         userpass: $self.userpass,
-        callback: function (state) {
+        callback: function (state, bools) {
           let msg = $self.state
-          state ? ((() => {
+          bools ? ((() => {
             $self.$notify(msg.success)
             $self.blowup()
           })()) : ((() => {
@@ -135,9 +172,11 @@ export default {
       .gks{
         padding-top: 0px;
         height: 1px;
-        background: #324157;
-        margin: 0px -10px;
-        margin-top: 14px;
+        margin: 0px 0px;
+        margin-top: 2px;
+        text-align: right;
+        font-size: 16px;
+        text-decoration: underline;
       }
     }
     >i:hover{

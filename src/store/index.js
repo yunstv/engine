@@ -6,9 +6,27 @@ const state = {
   statename: 'statename',
   boxlogin: false,
   validation: null,
+  registerUser: null,
   username: '未登录',
   userid: null,
-  userlogOut: null
+  userlogOut: null,
+  routespath: [
+    {
+      path: '/',
+      pathname: 'Hello',
+      name: '首页'
+    },
+    {
+      path: '/index',
+      pathname: 'index',
+      name: '生活记录轴'
+    },
+    {
+      path: '/home',
+      pathname: 'home',
+      name: '记录详情'
+    }
+  ]
 }
 const actions = {
   setBoxlogin: ({ commit }, value) => {
@@ -36,6 +54,31 @@ const actions = {
       information.validation = true
       commit('SET_USERNAME', information)
     }
+  },
+  setRoutespath: ({ commit }, obj) => {
+    obj.routespath.forEach((item, index) => {
+      let bool = false
+      if (item.pathname === obj.name) {
+        bool = true
+      }
+      item.active = bool
+    })
+    commit('SET_ROUTESPATH', obj.routespath)
+  },
+  setRegisterUser: ({ commit }, obj) => {
+    // 新建 AVUser 对象实例
+    var user = new AV.User()
+    // 设置用户名
+    user.setUsername(obj.username)
+    // 设置密码
+    user.setPassword(obj.userpass)
+    // 设置邮箱
+    user.setEmail(obj.useremaill)
+    user.signUp().then(function (loginedUser) {
+      obj.callback(loginedUser, true)
+    }, function (error) {
+      obj.callback(error, false)
+    })
   }
 }
 const mutations = {
@@ -49,6 +92,10 @@ const mutations = {
     Vue.set(state, 'username', value.username)
     Vue.set(state, 'userid', value.id)
     Vue.set(state, 'validation', value.validation)
+  },
+  SET_ROUTESPATH (state, obj) {
+    console.log(obj)
+    Vue.set(state, 'routespath', obj)
   }
 }
 

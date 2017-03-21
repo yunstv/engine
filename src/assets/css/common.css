@@ -174,7 +174,13 @@ a:hover{
     margin: 0px 15px;
     padding: 0 15px;
 }
-
+.loading {
+    position: absolute;
+    right: 0;
+    left: 0;
+    top: 0px;
+    bottom: 0;
+}
 pre {
     white-space: pre-wrap;       /* css-3 */
     white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */

@@ -1,6 +1,7 @@
 <template>
   <div class="home">
-    <el-row type="flex" class="row-bg" justify="center">
+    <div class="loading" v-loading.body="fullscreenLoading"  element-loading-text="拼命加载中" v-show="fullscreenLoading"></div>
+    <el-row type="flex" class="row-bg" justify="center" v-show="!fullscreenLoading">
       <el-col :span="22">
         <div class="grid-content bg-purple">
             <div class="box6">
@@ -53,7 +54,8 @@ export default {
       textarea: null,
       data: null,
       id: null,
-      commentdata: null
+      commentdata: null,
+      fullscreenLoading: true
     }
   },
   beforeRouteEnter (to, from, next) {
@@ -148,6 +150,7 @@ export default {
         feepld.content = converter.makeHtml(feepld.content)
         vm.data = feepld
         vm.comment()
+        vm.fullscreenLoading = false
       }, (error) => {
         console.log(error)
       })

@@ -1,6 +1,7 @@
 <template>
   <div class="index">
-      <el-row :gutter="20">
+     <div class="loading" v-loading.body="fullscreenLoading"  element-loading-text="拼命加载中" v-show="fullscreenLoading"></div>
+      <el-row :gutter="20" v-show="!fullscreenLoading">
          <el-col :xs="24" :sm="12" :md="8" :lg="6" v-for="item in data" :key="item.key">
           <div class="grid-content bg-purple">
             <router-link :to="item.link">
@@ -48,13 +49,15 @@ export default {
         return item
       })
       vm.data = feepld
+      vm.fullscreenLoading = false
     }, (error) => {
       console.log(error)
     })
   },
   data () {
     return {
-      data: null
+      data: null,
+      fullscreenLoading: true
     }
   }
 }

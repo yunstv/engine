@@ -6,9 +6,9 @@
         <span class="berfot" @click="depictn"></span>
         <i class="depict active-on-animation" @click="depictn"></i>
         <i class="btnlog"></i>
-        <label class="label-title">分类: javaScript<i></i><u>{{username}}</u><i class="exits" @click="exitsback" v-if="validation">退出</i></label>
+        <label class="label-title">分类: javaScript<i></i><u @click="verify">{{username}}</u><i class="exits" @click="exitsback" v-if="validation">退出</i></label>
         <el-menu theme="dark" default-active="1" class="el-menu-demo" mode="horizontal" @select="handleSelect" :class="nubrou&&'on'">
-          <template v-for="(item,i) in routes">
+          <template v-if="routespath" v-for="(item,i) in routespath">
             <el-menu-item :index="item.path" :class="item.active&&'is-active-on'">
               <router-link :to="item.path">{{item.name}}</router-link>
             </el-menu-item>
@@ -41,25 +41,18 @@ export default {
     },
     validation () {
       return this.$store.state.validation
+    },
+    routespath () {
+      return this.$store.state.routespath
     }
   },
   watch: {
     $route (to, from) {
-      let nubrou = !this.nubrou
-      if (window.DOC) {
-        nubrou = false
-        this.nubrou = false
-        console.log(window.DOC, this.nubrou)
-      }
-      if (nubrou) {
-        return false
-      }
-      console.log('state')
-      this.roufun(!this.nubrou)
+      this.routermain()
     }
   },
   created () {
-    this.roufun(this.nubrou)
+    this.routermain()
     this.$store.dispatch('setUsername', '')
   },
   data () {
@@ -67,27 +60,16 @@ export default {
       depicstate: false,
       docbools: window.DOC,
       nubrou: true,
-      routes: [
-        {
-          path: '/',
-          name: '首页'
-        },
-        {
-          path: '/index',
-          name: '生活记录轴'
-        },
-        {
-          path: '/class',
-          name: '-- 排除'
-        },
-        {
-          path: '/home',
-          name: '记录详情'
-        }
-      ]
+      routes: null
     }
   },
   methods: {
+    routermain () {
+      this.$store.dispatch('setRoutespath', {name: this.$route.name, routespath: this.routespath})
+    },
+    verify () {
+      this.validation || this.$store.dispatch('setBoxlogin', true)
+    },
     exitsback () {
       var vm = this
       vm.$confirm('确定退出账号吗？', '温馨提示', {
@@ -107,16 +89,6 @@ export default {
     depictn () {
       this.depicstate = !this.depicstate
     },
-    roufun (o) {
-      this.nubrou = o
-      this.routes.forEach((item, index) => {
-        let bool = false
-        if (o && item.path === this.$route.path) {
-          bool = true
-        }
-        this.routes[index].active = bool
-      })
-    },
     handleSelect (key, keyPath) {
       console.log(key, keyPath)
     }
@@ -133,15 +105,15 @@ export default {
 }
 body{margin: 0;padding: 0;}
 .is-active::before,.is-active-on::before{
-    content: '';
-    display: block;
-    position: absolute;
-    bottom: -4px;
-    left: 0;
-    width: 100%;
-    height: 4px;
-    background: #20a0ff;
-    opacity: 0;
+  content: '';
+  display: block;
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  background: #20a0ff;
+  opacity: 0;
 }
 .is-active::before{
   opacity: 1;
