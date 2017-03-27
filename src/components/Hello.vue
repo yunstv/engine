@@ -43,7 +43,6 @@ export default {
   watch: {
     msganimation () {
       let vm = this
-      console.log('watch')
       vm.time1 && clearTimeout(vm.time1)
       vm.time1 = setTimeout(() => {
         vm.characterAnimationfun()

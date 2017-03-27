@@ -243,7 +243,6 @@ a {
 }
 .img{
   max-width: 100%;
-  height: 30vh;
   overflow: hidden;
 }
 </style>

@@ -207,6 +207,7 @@ export default {
   }
   .box6{
     text-align: left;
+    max-width: 620px;
     .centents{
       background: #fafafa;
       padding: 15px 5px;
@@ -221,7 +222,7 @@ export default {
     padding: 5px 5px;
     .editor{
       .textarea{
-        border-radius: 10px; padding: 10px; width: 50vw; height: 50px;
+        border-radius: 10px; padding: 10px;height: 50px;
       }
       .textarea:focus{
         outline: 0;
