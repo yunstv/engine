@@ -89,7 +89,15 @@ export default {
           centent: vm.textarea,
           likes: 0
         }).then(function (result) {
-          console.log(result)
+          result.attributes.time = vm.format(new Date(), 'yyyy-MM-dd HH:mm:ss')
+          vm.commentdata.unshift(result.attributes)
+          let lmax = vm.commentdata.length
+          let puls = vm.commentdata.map((item, index) => {
+            item.index = lmax - index
+            return item
+          })
+          let feepld = puls
+          vm.commentdata = feepld.length ? feepld : null
         }, function (error) {
           if (error) throw error
         })
@@ -136,7 +144,6 @@ export default {
         })
         let feepld = feep(puls.reverse())
         vm.commentdata = feepld.length ? feepld : null
-        console.log(feepld)
       }, (error) => {
         throw (error)
       })
@@ -167,7 +174,7 @@ export default {
         this.submit().then(() => {
           this.$message(msgsuccess)
           this.textarea = ''
-          this.comment()
+          // this.comment()
         })
       }
     },

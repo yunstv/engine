@@ -1,14 +1,14 @@
 <template>
   <div class="index">
      <div class="loading" v-loading.body="fullscreenLoading"  element-loading-text="拼命加载中" v-show="fullscreenLoading"></div>
-      <el-row :gutter="20" v-show="!fullscreenLoading">
-         <el-col :xs="24" :sm="12" :md="8" :lg="6" v-for="item in data" :key="item.key">
+      <el-row :gutter="20" v-show="!fullscreenLoading" id="container">
+         <el-col :xs="24" :sm="12" :md="8" :lg="6" v-for="item in data" :key="item.key" class="grid-item" data-packed>
           <div class="grid-content bg-purple">
             <router-link :to="item.link">
               <div class="box15">
                    <h1>{{item.title}}</h1>
                    <div class="img">
-                      <img :src="item.images">
+                      <img :src="item.images" class="imgonload" data-imgonload>
                    </div>
                    <div class="centents" v-html="item.content"></div>
                    <br />
@@ -26,6 +26,7 @@
 import AV from 'leancloud-storage'
 import feep from '../common'
 import markdown from 'showdown'
+import Bricks from 'bricks.js'
 export default {
   name: 'hello',
   created () {
@@ -54,10 +55,60 @@ export default {
       console.log(error)
     })
   },
+  updated () {
+    // do something after updating vue instance
+    var vm = this
+    // childrenNode.forEach((item, index) => {
+    //   console.log(item)
+    // })
+    document.querySelector('[data-imgonload]').onload = function () {
+      setTimeout(() => {
+        vm.documentBricks()
+      }, 200)
+    }
+  },
   data () {
     return {
       data: null,
-      fullscreenLoading: true
+      fullscreenLoading: true,
+      fullscreenLoading2: true
+    }
+  },
+  methods: {
+    documentBricks () {
+      var a = {
+        container: '#container',
+        packed: 'data-packed',
+        sizes: [
+          {
+            columns: 1,
+            gutter: 10
+          },
+          {
+            mq: '768px',
+            columns: 2,
+            gutter: 10
+          },
+          {
+            mq: '1000px',
+            columns: 3,
+            gutter: 10
+          },
+          {
+            mq: '1130px',
+            columns: 3,
+            gutter: 12
+          },
+          {
+            mq: '1367px',
+            columns: 6,
+            gutter: 12
+          }
+        ]
+      }
+      // var c = Bricks(a).resize(!0)
+      Bricks(a).resize(!0).pack()
+      this.fullscreenLoading2 = false
     }
   }
 }
@@ -76,7 +127,9 @@ body {
 html {
     overflow-x: hidden;
 }
-
+#app #container{
+  margin: auto !important;
+}
 @keyframes squeezeBody {
     from { width: 100%; }
     to { width: calc(100% - 300px); }
@@ -102,7 +155,6 @@ html {
     -webkit-animation: squeezeBody 0.5s ease;
     width: calc(100% - 300px);
 }
-
 .full-body {
     animation: stretchBody 0.5s ease;
     -webkit-animation: stretchBody 0.5s ease;
@@ -185,8 +237,6 @@ h3 {
     font-size: 0.9em;
 }
 
-
-
 .container {
     display: flex;
     flex-direction: row;
@@ -244,5 +294,20 @@ a {
 .img{
   max-width: 100%;
   overflow: hidden;
+}
+@media (min-width: 768px){
+  .el-col-sm-12 {
+      width: 368px;
+  }
+}
+@media (min-width: 992px){
+  .el-col-md-8 {
+      width: 330.11px;
+  }
+}
+@media (min-width: 1200px){
+  .el-col-lg-6 {
+      width: 345.11px;
+  }
 }
 </style>

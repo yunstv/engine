@@ -49,21 +49,14 @@ export default {
       }, 100)
     }
   },
-  beforeCreate () {
-    console.log('beforeCreate:', this.ready)
-  },
   created () {
-    console.log('created:', this.ready())
+    this.ready()
   },
   methods: {
     ready () {
-      console.log('ready:')
       let vm = this
-      setTimeout(() => {
-        vm.fullscreenLoading = false
-        vm.characterAnimationfun()
-      }, 1000)
-      return 'start'
+      vm.fullscreenLoading = false
+      vm.characterAnimationfun()
     },
     substringfun () {
       let vm = this

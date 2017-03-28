@@ -156,7 +156,7 @@ export default {
     },
     blowup () {
       this.$store.dispatch('setBoxlogin', false)
-      console.log(this.boxlogin)
+      // console.log(this.boxlogin)
     }
   }
 }

@@ -94,7 +94,6 @@ const mutations = {
     Vue.set(state, 'validation', value.validation)
   },
   SET_ROUTESPATH (state, obj) {
-    console.log(obj)
     Vue.set(state, 'routespath', obj)
   }
 }

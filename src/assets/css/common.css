@@ -11,7 +11,6 @@ body {
 
 .box15{
     margin:40px 15px 25px 15px;
-    min-height: 310px;
     padding: 10px;
     position:relative;
     background: -webkit-gradient(linear, 100% 100%, 50% 10%, from(#fff), to(#f3f3f3), color-stop(.1,#fff));
@@ -91,7 +90,7 @@ a:hover{
 }
 .box6{
     margin: 20px auto;
-    width: 80%;
+    width: 95%;
     min-height: 150px;
     padding: 10px;
     position:relative;
@@ -229,7 +228,6 @@ pre code {
     margin-right: 5px;
     color: #ff4336;
 }
-
 .modal-close-btn:hover {
     float: right;
     display: inline-block;
@@ -287,4 +285,9 @@ blockquote, .box6 blockquote p {
     line-height: 1.6;
     margin-bottom: 1.25rem;
     text-rendering: optimizeLegibility;
+}
+@media (max-width: 767px) {
+  .content>.label-title{
+    display: none;
+  }
 }
