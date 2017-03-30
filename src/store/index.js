@@ -14,17 +14,12 @@ const state = {
     {
       path: '/',
       pathname: 'Hello',
-      name: '首页'
+      name: '个人介绍'
     },
     {
       path: '/index',
       pathname: 'index',
-      name: '生活记录轴'
-    },
-    {
-      path: '/home',
-      pathname: 'home',
-      name: '记录详情'
+      name: '文章列表'
     }
   ]
 }

@@ -101,7 +101,7 @@ export default {
           },
           {
             mq: '1367px',
-            columns: 6,
+            columns: 5,
             gutter: 12
           }
         ]
