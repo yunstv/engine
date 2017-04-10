@@ -5,6 +5,7 @@
       <el-col :span="22">
         <div class="grid-content bg-purple">
             <div class="box6">
+                <h1>{{data&&data.title}}</h1>
                 <div class="text-left centents" v-html="data&&data.content"></div>
                 <div class="box6_corner_lf"></div>
                 <div class="box6_corner_rt"></div>

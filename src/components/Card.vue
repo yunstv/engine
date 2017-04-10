@@ -2,43 +2,61 @@
   <div class="card">
     <div class="filters"></div>
     <div class="bio">
-      <img src="https://avatars1.githubusercontent.com/u/2663351?v=3&s=460">
+      <img src="http://www.yunstv.cn/myimags.jpg">
       <p>梦周十</p>
+      <p style="font-size: 12px; margin-top: -22px;">
+        当我和世界不一样，那就让我不一样
+      </p>
       <nav class="header-nav">
         <div class="social">
             <a class="github" target="_blank" href="https://github.com/yunstv" title="github">github</a>
             <a class="weibo" target="_blank" href="http://weibo.com/3609009263/profile" title="weibo">weibo</a>
         </div>
       </nav>
-      <nav class="list">
-        <dl>
-          <dt>分类</dt>
-          <dd>
-            js技术类
-            <span>5</span>
+      <nav class="list" v-if="cardData" style="height: 53%; overflow: auto;">
+        <dl v-for="(elem, index) in cardData" :key="elem.key" v-if="index=='分类'">
+          <dt>{{index}}</dt>
+          <dd v-for="(elem1, index1) in elem">
+            {{index1}}
+            <p v-for="(elem2, index2) in elem1" @click="routers(elem2.id, elem2.name, elem2.count, 1)">
+              {{elem2.name}}
+              <span>{{elem2.count}}</span>
+            </p>
           </dd>
-          <dd>
-            js技术类
-            <span>5</span>
+        </dl>
+        <dl v-for="(elem, index) in cardData" :key="elem.key" v-if="index=='标签'">
+          <dt>{{index}}</dt>
+          <dd class="dd">
+            <span v-for="(elem1, index1) in elem" class="label" @click="routerssearching(2, index1)">{{index1}}</span>
+          </dd>
+        </dl>
+        <dl v-for="(elem, index) in cardData" :key="elem.key" v-if="index=='归档'" class="time">
+          <dt>{{index}}</dt>
+          <dd v-for="(elem1, index1) in elem" @click="routerssearching(3, index1)">
+            {{index1}}
+            <span></span>
           </dd>
         </dl>
         <dl>
+          <dt><div class="btn" @click="allblog">
+            全部
+          </div></dt>
+        </dl>
+        <!-- <dl>
           <dt>标签</dt>
           <dd class="dd">
-            <span class="label">javaScript</span>
-            <span class="label">CSS</span>
-            <span class="label">html</span>
-            <span class="label">CSS</span>
-            <span class="label">html</span>
+            <div class="">
+              <span class="label">javaScript</span>
+            </div>
           </dd>
         </dl>
         <dl class="time">
           <dt>归档</dt>
           <dd>
             2017年2月
-            <span>5</span>
+            <span>233</span>
           </dd>
-        </dl>
+        </dl> -->
       </nav>
     </div>
   </div>
@@ -49,6 +67,27 @@ export default {
   data () {
     return {
       msg: 'home'
+    }
+  },
+  computed: {
+    cardData () {
+      return this.$store.state.cardData
+    }
+  },
+  methods: {
+    routerssearching (active, name) {
+      this.$router.push({path: 'index', query: {active: active, class: name}})
+    },
+    allblog () {
+      this.$store.dispatch('setBlogclassifyid', null)
+      this.$store.dispatch('setPropsvstate', null)
+      this.$router.push({name: 'index'})
+    },
+    routers (id, name, count, active) {
+      if (count === 0) return false
+      this.$store.dispatch('setBlogclassifyid', id)
+      this.$store.dispatch('setPropsvstate', name)
+      this.$router.push({path: 'index', query: {active: active, class: name}})
     }
   }
 }
@@ -63,6 +102,9 @@ export default {
       text-align: left;
       color: #fff;
       font-size: 16px;
+    }
+    .btn{
+      text-align: center; border: 1px solid #fff; line-height: 27px; cursor: pointer; position: absolute; bottom: 29px; right: 25px; left: 25px;
     }
     dl.time{
       margin:0 -40px;
@@ -102,7 +144,7 @@ export default {
           color: #ccc;
         }
       }
-      dd:hover{
+      dd p:hover{
         text-decoration: underline;
       }
     }
@@ -168,6 +210,13 @@ export default {
       font-size: 24px;
       color: #fff;
       margin-top: 10px;
+    }
+    .list p{
+      font-size: 16px;
+      color: #fff;
+      margin-top: 10px;
+      margin-bottom: -5px;
+      margin-left: 8px;
     }
   }
 </style>

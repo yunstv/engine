@@ -6,7 +6,7 @@ body {
     text-align: center;
     background: url(http://www.yunstv.cn/2zrdI1g.jpg) no-repeat 50%;
     background-size: cover;
-
+    overflow: hidden;
 }
 
 .box15{

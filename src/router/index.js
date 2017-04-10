@@ -2,7 +2,6 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Hello from 'components/Hello'
 import Index from 'components/Index'
-import Class from 'components/Class'
 import Home from 'components/Home'
 Vue.use(Router)
 const HotRouter = new Router({
@@ -16,11 +15,6 @@ const HotRouter = new Router({
       path: '/index',
       name: 'index',
       component: Index
-    },
-    {
-      path: '/class',
-      name: 'class',
-      component: Class
     },
     {
       path: '/home/:id',

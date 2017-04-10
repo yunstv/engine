@@ -10,6 +10,7 @@ const state = {
   username: '未登录',
   userid: null,
   userlogOut: null,
+  cardData: 12,
   routespath: [
     {
       path: '/',
@@ -21,9 +22,77 @@ const state = {
       pathname: 'index',
       name: '文章列表'
     }
-  ]
+  ],
+  blogclassifyid: null,
+  propsvstate: null
 }
 const actions = {
+  setPropsvstate: ({ commit }, name) => {
+    commit('SET_PROPSVSTATE', name)
+  },
+  setBlogclassifyid: ({ commit }, id) => {
+    commit('SET_BLOGCLASSIFYID', id)
+  },
+  setCardData: ({ commit }, value) => {
+    let query = new AV.Query('blogclassify')
+    let querycomment = new AV.Query('blogessay')
+    var json = {}
+    var datas = {}
+    querycomment.select(['blogclassifyid']).find().then((results) => {
+      let arrids = results.map((item, index) => {
+        return item.get('blogclassifyid')
+      })
+      query.contains('essayroot', '1')
+      query.find().then((results) => {
+        json.root1 = results
+        query.contains('essayroot', '2').find().then((results) => {
+          json.root2 = results
+          query.contains('essayroot', '3').find().then((results) => {
+            json.root3 = results
+            json.root1.forEach((item, index) => {
+              let id1 = item.id
+              let labelname1 = item.get('labelname')
+              datas[labelname1] = {}
+              json.root2.forEach((item, index) => {
+                let id2 = item.get('goback')
+                let id21 = item.id
+                let labelname2 = item.get('labelname')
+                if (id1 === id2) {
+                  datas[labelname1][labelname2] = []
+                  json.root3.forEach((item, index) => {
+                    let id3 = item.get('goback')
+                    let id31 = item.id
+                    let labelname3 = item.get('labelname')
+                    if (id3 === id21) {
+                      datas[labelname1][labelname2].push({
+                        id: id31,
+                        name: labelname3,
+                        count: (() => {
+                          let num = 0
+                          arrids.forEach((item, index) => {
+                            var id = item
+                            if (id31 === id) num += 1
+                          })
+                          return num
+                        })()
+                      })
+                    }
+                  })
+                }
+              })
+            })
+            commit('SET_CARDDATA', datas)
+          }, (error) => {
+            throw (error)
+          })
+        }, (error) => {
+          throw (error)
+        })
+      }, (error) => {
+        throw (error)
+      })
+    })
+  },
   setBoxlogin: ({ commit }, value) => {
     commit('SET_BOXLOGIN', value)
   },
@@ -77,6 +146,15 @@ const actions = {
   }
 }
 const mutations = {
+  SET_PROPSVSTATE (state, name) {
+    Vue.set(state, 'propsvstate', name)
+  },
+  SET_BLOGCLASSIFYID (state, id) {
+    Vue.set(state, 'blogclassifyid', id)
+  },
+  SET_CARDDATA (state, value) {
+    Vue.set(state, 'cardData', value)
+  },
   SET_BOXLOGIN (state, value) {
     Vue.set(state, 'boxlogin', value)
   },

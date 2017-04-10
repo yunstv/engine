@@ -29,31 +29,28 @@ import markdown from 'showdown'
 import Bricks from 'bricks.js'
 export default {
   name: 'hello',
+  computed: {
+    blogclassifyid () {
+      return this.$store.state.blogclassifyid
+    }
+  },
+  watch: {
+    blogclassifyid () {
+      this.fullscreenLoading = true
+      this.readys()
+    },
+    $route (to, from) {
+      this.fullscreenLoading = true
+      let active = to.query.active
+      let classz = to.query.class
+      classz && (active === 2 || active === 3) && this.classreadys(classz, active)
+    }
+  },
   created () {
-    var vm = this
-    var converter = new markdown.Converter()
-    // 表查询
-    const query = new AV.Query('blogessay')
-    query.find().then((reslut) => {
-      var [map, puls] = [reslut, []]
-      if (Array === map.constructor) {
-        puls = map.map((item, index) => {
-          item.attributes.id = item.id
-          return item.attributes
-        })
-      }
-      let feepld = feep(puls)
-      // get('content')
-      feepld = feepld.map((item, index) => {
-        item.link = {name: 'home', params: { id: item.id }}
-        item.content = converter.makeHtml(item.paper)
-        return item
-      })
-      vm.data = feepld
-      vm.fullscreenLoading = false
-    }, (error) => {
-      console.log(error)
-    })
+    let to = this.$route.query
+    let active = to.active
+    let classz = to.class
+    classz ? this.classreadys(classz, active) : this.readys()
   },
   updated () {
     // do something after updating vue instance
@@ -75,6 +72,116 @@ export default {
     }
   },
   methods: {
+    classreadys (to, active) {
+      var vm = this
+      var converter = new markdown.Converter()
+      // 表查询
+      let query1 = new AV.Query('blogclassify')
+      let query = new AV.Query('blogessay')
+      if (String(active) === String(1)) {
+        query1.contains('labelname', to).find().then((reslut) => {
+          query.contains('blogclassifyid', reslut[0].id)
+          query.find().then((reslut) => {
+            var [map, puls] = [reslut, []]
+            if (Array === map.constructor) {
+              puls = map.map((item, index) => {
+                item.attributes.id = item.id
+                return item.attributes
+              })
+            }
+            let feepld = feep(puls)
+            feepld = feepld.map((item, index) => {
+              item.link = {name: 'home', params: { id: item.id }}
+              item.content = converter.makeHtml(item.paper)
+              return item
+            })
+            vm.data = feepld
+            vm.fullscreenLoading = false
+          }, (error) => {
+            console.log(error)
+          })
+        })
+      }
+      if (String(active) === String(2)) {
+        query.contains('label', to)
+        query.find().then((reslut) => {
+          if (reslut.length === 0) {
+            vm.fullscreenLoading = false
+            return false
+          }
+          var [map, puls] = [reslut, []]
+          if (Array === map.constructor) {
+            puls = map.map((item, index) => {
+              item.attributes.id = item.id
+              return item.attributes
+            })
+          }
+          let feepld = feep(puls)
+          feepld = feepld.map((item, index) => {
+            item.link = {name: 'home', params: { id: item.id }}
+            item.content = converter.makeHtml(item.paper)
+            return item
+          })
+          vm.data = feepld
+          vm.fullscreenLoading = false
+        }, (error) => {
+          console.log(error)
+        })
+      }
+      if (String(active) === String(3)) {
+        query.contains('timeprsime', to)
+        query.find().then((reslut) => {
+          if (reslut.length === 0) {
+            vm.fullscreenLoading = false
+            return false
+          }
+          var [map, puls] = [reslut, []]
+          if (Array === map.constructor) {
+            puls = map.map((item, index) => {
+              item.attributes.id = item.id
+              return item.attributes
+            })
+          }
+          let feepld = feep(puls)
+          feepld = feepld.map((item, index) => {
+            item.link = {name: 'home', params: { id: item.id }}
+            item.content = converter.makeHtml(item.paper)
+            return item
+          })
+          vm.data = feepld
+          vm.fullscreenLoading = false
+        }, (error) => {
+          console.log(error)
+        })
+      }
+    },
+    readys () {
+      var vm = this
+      var converter = new markdown.Converter()
+      // 表查询
+      const query = new AV.Query('blogessay')
+      vm.blogclassifyid !== null && query.contains('blogclassifyid', vm.blogclassifyid)
+      query.find().then((reslut) => {
+        var [map, puls] = [reslut, []]
+        if (Array === map.constructor) {
+          puls = map.map((item, index) => {
+            item.attributes.id = item.id
+            return item.attributes
+          })
+        }
+        let feepld = feep(puls)
+        // get('content')
+        feepld = feepld.map((item, index) => {
+          item.link = {name: 'home', params: { id: item.id }}
+          item.content = converter.makeHtml(item.paper)
+          return item
+        })
+        vm.data = feepld
+        vm.fullscreenLoading = false
+      }, (error) => {
+        console.log(error)
+      })
+    },
     documentBricks () {
       var a = {
         container: '#container',

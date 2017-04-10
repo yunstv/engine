@@ -3,10 +3,10 @@
     <div id="app" :class="depicstate&&'animation'">
       <Login></Login>
       <div class="content">
-        <span class="berfot" @click="depictn"></span>
+        <span class="berfot" @click="depictncard"></span>
         <i class="depict active-on-animation" @click="depictn"></i>
         <i class="btnlog"></i>
-        <label class="label-title">分类: javaScript<i></i><u @click="verify">{{username}}</u><i class="exits" @click="exitsback" v-if="validation">退出</i></label>
+        <label class="label-title"><span v-show="propsvstate">分类: {{propsvstate}}</span><i></i><u @click="verify">{{username}}</u><i class="exits" @click="exitsback" v-if="validation">退出</i></label>
         <el-menu theme="dark" default-active="1" class="el-menu-demo" mode="horizontal" @select="handleSelect" :class="nubrou&&'on'">
           <template v-if="routespath" v-for="(item,i) in routespath">
             <el-menu-item :index="item.path" :class="item.active&&'is-active-on'">
@@ -44,6 +44,9 @@ export default {
     },
     routespath () {
       return this.$store.state.routespath
+    },
+    propsvstate () {
+      return this.$store.state.propsvstate
     }
   },
   watch: {
@@ -60,7 +63,8 @@ export default {
       depicstate: false,
       docbools: window.DOC,
       nubrou: true,
-      routes: null
+      routes: null,
+      carddata: false
     }
   },
   methods: {
@@ -87,6 +91,10 @@ export default {
       })
     },
     depictn () {
+      this.depicstate = !this.depicstate
+      !this.carddata && (this.carddata = true, this.$store.dispatch('setCardData', ''))
+    },
+    depictncard () {
       this.depicstate = !this.depicstate
     },
     handleSelect (key, keyPath) {
