@@ -82,7 +82,7 @@ export default {
         query1.contains('labelname', to).find().then((reslut) => {
           query.contains('blogclassifyid', reslut[0].id)
           query.find().then((reslut) => {
-            var [map, puls] = [reslut, []]
+            var [map, puls] = [reslut.reverse(), []]
             if (Array === map.constructor) {
               puls = map.map((item, index) => {
                 item.attributes.id = item.id
@@ -135,7 +135,7 @@ export default {
             vm.fullscreenLoading = false
             return false
           }
-          var [map, puls] = [reslut, []]
+          var [map, puls] = [reslut.reverse(), []]
           if (Array === map.constructor) {
             puls = map.map((item, index) => {
               item.attributes.id = item.id
@@ -162,7 +162,7 @@ export default {
       const query = new AV.Query('blogessay')
       vm.blogclassifyid !== null && query.contains('blogclassifyid', vm.blogclassifyid)
       query.find().then((reslut) => {
-        var [map, puls] = [reslut, []]
+        var [map, puls] = [reslut.reverse(), []]
         if (Array === map.constructor) {
           puls = map.map((item, index) => {
             item.attributes.id = item.id
