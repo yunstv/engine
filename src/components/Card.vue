@@ -2,17 +2,34 @@
   <div class="card">
     <div class="filters"></div>
     <div class="bio">
-      <img src="http://www.yunstv.cn/myimags.jpg">
-      <p>梦周十</p>
-      <p style="font-size: 12px; margin-top: -22px;">
-        当我和世界不一样，那就让我不一样
-      </p>
-      <nav class="header-nav">
-        <div class="social">
-            <a class="github" target="_blank" href="https://github.com/yunstv" title="github">github</a>
-            <a class="weibo" target="_blank" href="http://weibo.com/3609009263/profile" title="weibo">weibo</a>
+      <div class="frienhover">
+        <div class="friendship">
+          <div class="t">
+            友情链接
+          </div>
+          <div>
+            <a href="http://www.cnblogs.com/jbml-154312/" title="http://www.cnblogs.com/jbml-154312/" alt="http://www.cnblogs.com/jbml-154312/" target="_blank">久伴沫离</a>
+          </div>
+          <div>
+            <a href="http://www.hewenjun.top/" title="http://www.hewenjun.top/" alt="http://www.hewenjun.top/" target="_blank">勤能补拙</a>
+          </div>
+
         </div>
-      </nav>
+        <img src="http://www.yunstv.cn/myimags.jpg">
+        <p>梦周十</p>
+        <p style="font-size: 12px; margin-top: -22px;">
+          当我和世界不一样，那就让我不一样
+        </p>
+        <nav class="header-nav">
+          <div class="social">
+              <a class="github" target="_blank" href="https://github.com/yunstv" title="github">github</a>
+              <a class="weibo" target="_blank" href="http://weibo.com/3609009263/profile" title="weibo">weibo</a>
+          </div>
+        </nav>
+      </div>
+      <div class="load" v-show="!cardData">
+        <p style="text-align:center;margin-top:50px;font-size:14px;">列表加载中...</p>
+      </div>
       <nav class="list" v-if="cardData" style="height: 53%; overflow: auto;">
         <dl v-for="(elem, index) in cardData" :key="elem.key" v-if="index=='分类'">
           <dt>{{index}}</dt>
@@ -42,21 +59,6 @@
             全部
           </div></dt>
         </dl>
-        <!-- <dl>
-          <dt>标签</dt>
-          <dd class="dd">
-            <div class="">
-              <span class="label">javaScript</span>
-            </div>
-          </dd>
-        </dl>
-        <dl class="time">
-          <dt>归档</dt>
-          <dd>
-            2017年2月
-            <span>233</span>
-          </dd>
-        </dl> -->
       </nav>
     </div>
   </div>

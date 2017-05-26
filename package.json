@@ -13,6 +13,7 @@
     "lint": "eslint --ext .js,.vue src test/unit/specs test/e2e/specs"
   },
   "dependencies": {
+    "bricks.js": "^1.8.0",
     "element-ui": "^1.2.3",
     "leancloud-storage": "^2.1.2",
     "sass-loader": "^6.0.0",

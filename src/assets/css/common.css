@@ -1,3 +1,20 @@
+::-webkit-scrollbar-track-piece {
+    background-color:transparent;
+    border-left:1px solid transparent;
+}
+::-webkit-scrollbar {
+    width:6px;
+}
+::-webkit-scrollbar-thumb {
+    background-color:#c2c2c2;
+    background-clip:padding-box;
+    border:1px solid #979797;
+    min-height:28px;
+}
+::-webkit-scrollbar-thumb:hover {
+    border:1px solid #636363;
+    background-color:#929292;
+}
 html,body{ height: 100%;}
 body {
     font-size: 11px;
@@ -17,9 +34,38 @@ body {
     border: 1px solid #ccc;
     -webkit-box-shadow: 1px 1px 4px rgba(0,0,0, 0.1);
     -webkit-border-bottom-right-radius: 60px 5px;
-
 }
-
+.friendship{
+    width: 100px;
+    position: absolute;
+    left: 299px;
+    bottom: 50px;
+    top: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    background: #fff;
+    padding: 5px;
+    padding-top: 10px;
+    border-radius: 10px;
+    box-shadow: 10px 10px 100px #333;
+    transition: all 1s ease;
+    display: none;
+}
+.frienhover:hover .friendship{
+  display: block;
+}
+.friendship .t{
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+.friendship div{
+  margin-bottom: 8px;
+}
+.friendship a,.friendship a:hover{
+  text-decoration: underline;
+}
 .box15:before{
     content: '';
     width: 98%;

@@ -161,6 +161,7 @@ body{margin: 0;padding: 0;}
   background: #fff;
   left: -300px;
   top: 0;
+  z-index: 6;
 }
 #app.animation .content .berfot{
   z-index: 5;
