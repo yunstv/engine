@@ -1,25 +1,22 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Hello from 'components/Hello'
-import Index from 'components/Index'
-import Home from 'components/Home'
 Vue.use(Router)
 const HotRouter = new Router({
   routes: [
     {
       path: '/',
       name: 'Hello',
-      component: Hello
+      component: () => import('components/Hello')
     },
     {
       path: '/index',
       name: 'index',
-      component: Index
+      component: () => import('components/Index')
     },
     {
       path: '/home/:id',
       name: 'home',
-      component: Home
+      component: () => import('components/Home')
     }
   ]
 })
