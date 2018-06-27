@@ -15,7 +15,7 @@
           </div>
 
         </div>
-        <img src="http://www.yunstv.cn/myimags.jpg">
+        <img src="static/img/17945292.jpg">
         <p>梦周十</p>
         <p style="font-size: 12px; margin-top: -22px;">
           当我和世界不一样，那就让我不一样
@@ -182,7 +182,7 @@ export default {
       background-position: center;
   }
   .card{
-    background: url(http://www.yunstv.cn/userbg.jpg);
+    background: url(~/static/img/timg.jpeg);
     background-size: cover;
     height: 100%;
   }  .card .filters, .card .bio{

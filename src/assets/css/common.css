@@ -21,7 +21,7 @@ body {
     font-family: 'Open Sans', sans-serif;
     color: #4A4A4A ;
     text-align: center;
-    background: url(http://www.yunstv.cn/2zrdI1g.jpg) no-repeat 50%;
+    background: url(~/static/img/2zrdI1g.jpg) no-repeat 50%;
     background-size: cover;
     overflow: hidden;
 }
